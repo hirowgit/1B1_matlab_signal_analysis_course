@@ -1,10 +1,8 @@
-this_file_tag='freqPlotEEG_Gold';
-
 %% MATLAB programming course for beginners, supported by Wagatsuma Lab@Kyutech 
 %
 % /* 
 % The MIT License (MIT): 
-% Copyright (c) 2020 Hiroaki Wagatsuma and Wagatsuma Lab@Kyutech
+% Copyright (c) 2014 Hiroaki Wagatsuma and Wagatsuma Lab@Kyutech
 % 
 % Permission is hereby granted, free of charge, to any person obtaining a
 % copy of this software and associated documentation files (the
@@ -25,33 +23,33 @@ this_file_tag='freqPlotEEG_Gold';
 % OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 % USE OR OTHER DEALINGS IN THE SOFTWARE. */
 %% Specifications and requirements
-% # @Time    : 2020-4-20 
+% # @Time    : 2014-08-09 
 % # @Author  : Hiroaki Wagatsuma
-% # @Site    : https://github.com/hirowgit/1_matlab_basic_course
+% # @Site    : https://github.com/hirowgit/1B1_matlab_signal_analysis_course
 % # @IDE     : MATLAB R2018a
-% # @File    : x_publish_each_codes.m
+% # @File    : save_fig.m
 
-%%  Main program
-%%  Publish individual codes and thier results
-suffST={'m','html','pdf','latex','xml','doc','ppt'}; typeST={'MATLAB','HTML','PDF','LaTeX','XML','Microsoft Word','Microsoft PowerPoint'}; 
+%%  Sub program
 
-try    
-    f_name(1:length(suffST))={this_file_tag};
-    f_name2=cellfun(@(s1,s2) [s1,'.',s2],f_name,suffST,'UniformOutput',false);
-    currT=clock; date_stamp=sprintf("%d/%d/%d",currT(1:3)); 
-catch
-    disp('Please do not delete the first line with "this_file_tag" ')
-end
+folder_name=strsplit(datafname,'.');
+if ~exist(folder_name{1},'dir'); mkdir(folder_name{1}); end
+curdir=pwd;
+cd(folder_name{1});
 
-if ~exist(this_file_tag,'dir'); mkdir(this_file_tag); end
-for i=2:length(suffST)   % (For doc and ppt error may happen in publish in some platform like mac) 
-    try
-        publish(f_name2{1},'format',suffST{i},'outputDir',this_file_tag);
-        fprintf('successfully published as %s files ! See in folder "%s".\r\n',typeST{i},this_file_tag);
-    catch
-        fprintf('sfailed to publish into %s files ...\r\n',typeST{i});
+hfig=findobj('Type','figure');
+for i=1:length(hfig)
+    sname=get(hfig(i),'name'); s2name = regexp(sname,'[A-Za-z0-9()]+','match'); 
+    if isempty(s2name) fnlname=['fig_',num2str(hfig(i))]; else fnlname='fig'; end 
+    fnlname=[fnlname,'_',folder_name{1}];
+    for j=1:length(s2name)
+        fnlname=[fnlname,'_',s2name{j}];
     end
-
+    figure(hfig(i));
+    saveas(gcf,fnlname,'fig');
+    saveas(gcf,fnlname,'pdf');
+%     saveas(gcf,fnlname,'ai');
+    saveas(gcf,fnlname,'eps');
+    saveas(gcf,fnlname,'jpg');
+    saveas(gcf,fnlname,'png');
 end
-web([this_file_tag,'/',f_name2{2}]);
-%%
+cd(curdir);
