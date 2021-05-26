@@ -3,7 +3,7 @@ https://github.com/hirowgit/1B1_matlab_signal_analysis_course
 
 For basic signal analysis on MATLAB.
  
-# Lecture 1
+ # Lecture 0: How to analyze EEG data 
 ## < FFT analysis >
 
 ### 1) EEG open data  
@@ -40,3 +40,17 @@ SET E     S.zip      with     S000.txt - S100.txt      (747kB) -> "E-S" folder
 ### 3) Run "freqPlotEEG_Gold.m"  as main file
 type the file path of the folder "A-Z" and so on,
 or put all above folder in the same folder of the main m file.
+
+# Lecture 1: How to treat 1D data 
+## < Plotting a time series >
+
+### 1) Sine wave and its piecewise linear function to trace characteristic points by using simbolic math solver  
+See this page for learning MATLAB symbolic solver
+[1] https://jp.mathworks.com/help/symbolic/solve.html
+
+lec1D_A1_SimplePlot_Normal
+lec1D_A2_PLF_plot_Normal
+lec1D_A3_PLF_solver_Normal
+
+
+
