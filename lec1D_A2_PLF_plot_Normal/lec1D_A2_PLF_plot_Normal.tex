@@ -1,0 +1,103 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{MATLAB programming course for beginners, supported by Wagatsuma Lab@Kyutech}
+
+\begin{par}
+/* The MIT License (MIT): Copyright (c) 2021 Hiroaki Wagatsuma and Wagatsuma Lab@Kyutech
+\end{par} \vspace{1em}
+\begin{par}
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+\end{par} \vspace{1em}
+\begin{par}
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+\end{par} \vspace{1em}
+\begin{par}
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Specifications and requirements
+   \item Main program
+\end{itemize}
+
+
+\subsection*{Specifications and requirements}
+
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item @Time    : 2021-5-19
+   \item @Author  : Hiroaki Wagatsuma
+   \item @Site    : (1) https://github.com/hirowgit/1B0\_matla\_optmization\_course
+   \item @Site    : (2) https://github.com/hirowgit/1B1\_matlab\_signal\_analysis\_course
+   \item @IDE     : MATLAB R2018a
+   \item @File    : (1) TSP\_lecture2.m
+   \item @File    : (2) lec1D\_A2\_PLF\_plot\_Normal.m
+\end{enumerate}
+
+
+\subsection*{Main program}
+
+\begin{par}
+clear all
+\end{par} \vspace{1em}
+\begin{verbatim}
+close all
+% sin wave
+
+figure(1); clf
+set(1,'name','sine_wave2','Position',[720   820   870   400]);
+leglabel={'piecewise linear function', 'original sine wave'};
+dT=0.1;
+
+t=0:dT:2*pi+dT;
+y=sin(t);
+
+y2=@(t) (2/pi*t).*(t<=pi/2)+(-2/pi*t+2).*(t>pi/2 & t<=pi) ...
+    +(-2/pi*t+2).*(t>pi & t<=3*pi/2)+(2/pi*t-4).*(t>3*pi/2 & t<=2*pi);
+% see more detail of how you can obtain this parameters in TSP_lecture3.m
+
+plot(t,y2(t),t,y,'.-','LineWidth',2,'MarkerSize',12);
+set(gca,'xlim',[0,2*pi],'ylim',[-1.2,1.2],'FontSize',14);
+legend(leglabel,'best')
+
+xtickpoint=0:pi/4:2*pi;
+xlabel={'0','\pi/4','\pi/2','3\pi/4','\pi','5\pi/4','3\pi/2','7\pi/4','2\pi'};
+set(gca,'xtick',xtickpoint,'xticklabel',xlabel)
+title('Sine wave');
+grid on;
+axis equal;
+
+datafname='m_figures';
+save_fig;
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}Warning: Ignoring extra legend entries. 
+Warning: The figure is too large for the page and will be cut off. Resize the
+figure, adjust the output size by setting the figure's PaperPosition property,
+use the 'print' command with either the  '-bestfit' or '-fillpage' options, or
+use the 'Best fit' or 'Fill page' options on the 'Print Preview' window. 
+\end{verbatim} \color{black}
+    
+\includegraphics [width=4in]{lec1D_A2_PLF_plot_Normal_01.eps}
+
+
+
+\end{document}
+    
