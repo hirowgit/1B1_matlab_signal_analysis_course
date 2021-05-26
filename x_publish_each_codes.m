@@ -35,8 +35,9 @@ this_file_tag='freqPlotEEG_Gold';
 %%  Publish individual codes and thier results
 suffST={'m','html','pdf','latex','xml','doc','ppt'}; typeST={'MATLAB','HTML','PDF','LaTeX','XML','Microsoft Word','Microsoft PowerPoint'}; 
 
-this_file_tag_all={'lec1D_A1_SimplePlot_Normal','lec1D_A2_PLF_plot_Normal','lec1D_A3_PLF_solver_Normal'};
-this_file_tag=this_file_tag_all{3};
+% this_file_tag_all={'lec1D_A1_SimplePlot_Normal','lec1D_A2_PLF_plot_Normal','lec1D_A3_PLF_solver_Normal'};
+this_file_tag_all={'lec2D_A1_lineHough_Copper','lec2D_A1_lineHough_Advanced','lec2D_A0_lineGen_Normal','lec2D_A1_lineHough_Plus'};
+this_file_tag=this_file_tag_all{4};
 try    
     f_name(1:length(suffST))={this_file_tag};
     f_name2=cellfun(@(s1,s2) [s1,'.',s2],f_name,suffST,'UniformOutput',false);

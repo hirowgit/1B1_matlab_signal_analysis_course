@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mscript xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <version>9.4</version>
+   <release>2018a</release>
+   <date>2021-05-26</date>
+   <cell style="overview">
+      <count>1</count>
+      <steptitle style="document">MATLAB programming course for beginners, supported by Wagatsuma Lab@Kyutech</steptitle>
+      <text>
+         <p>/* The MIT License (MIT): Copyright (c) 2021 Hiroaki Wagatsuma and Wagatsuma Lab@Kyutech</p>
+         <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+         <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+         <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */</p>
+      </text>
+      <cellOutputTarget>1</cellOutputTarget>
+   </cell>
+   <cell>
+      <count>2</count>
+      <steptitle>Specifications and requirements</steptitle>
+      <text>
+         <ol>
+            <li>@Time    : 2021-5-26</li>
+            <li>@Author  : Hiroaki Wagatsuma</li>
+            <li>@Site    : https://github.com/hirowgit/1B1_matlab_signal_analysis_course</li>
+            <li>@IDE     : MATLAB R2018a</li>
+            <li>@File    : lec2D_A0_lineGen_Normal.m</li>
+         </ol>
+      </text>
+      <cellOutputTarget>2</cellOutputTarget>
+   </cell>
+   <cell>
+      <count>3</count>
+      <steptitle>Main program</steptitle>
+      <text>
+         <p>clear all</p>
+      </text>
+      <mcode>a=1; b=2;
+% dT=0.25;
+dT=0.75;
+rdN=100;
+dN=100;
+dNs=20;
+t=0:pi/dN:pi;
+gridP=0:dNs;
+
+rangeXY=[0 20; 0 20]; %[xmin, xmax; ymin, ymax];
+labelF={'line','random','line+random','hough trans. for line','discrete vote','voting contour map'};
+fignum=1;
+
+
+x=0:dT:rangeXY(1,2);
+lgen=@(x) a*x+b;
+
+
+figure(fignum); clf
+set(fignum,'name',labelF{fignum},'Position',[500   920   550   500]);
+plot(x,lgen(x),'b.','MarkerSize',24);
+title(labelF{fignum});
+grid on;
+axis equal;
+fignum=fignum+1;
+
+rdPos=repmat(diff(rangeXY'),[rdN 1]).*rand(rdN,2)+repmat(rangeXY(:,1)',[rdN 1]);
+
+figure(fignum); clf
+set(fignum,'name',labelF{fignum},'Position',[1050   850   550   500]);
+
+plot(rdPos(:,1),rdPos(:,2),'r.','MarkerSize',24);
+set(gca,'xlim',rangeXY(1,:),'ylim',rangeXY(2,:));
+title(labelF{fignum});
+grid on;
+axis equal;
+fignum=fignum+1;
+
+mD=[x',lgen(x'); rdPos];
+% mD=[x',lgen(x'); ];
+
+figure(fignum); clf
+set(fignum,'name',strrep(labelF{fignum},'+','_'),'Position',[1600   850   550   500]);
+
+plot(mD(:,1),mD(:,2),'k.','MarkerSize',24);
+set(gca,'xlim',rangeXY(1,:),'ylim',rangeXY(2,:));
+title(labelF{fignum});
+grid on;
+axis equal;
+fignum=fignum+1;
+
+
+
+
+% datafname='pict_res';
+% save_fig;</mcode>
+      <mcode-xmlized>
+         <mwsh:code xml:space="preserve">a=1; b=2;
+<mwsh:comments xml:space="preserve">% dT=0.25;</mwsh:comments>
+dT=0.75;
+rdN=100;
+dN=100;
+dNs=20;
+t=0:pi/dN:pi;
+gridP=0:dNs;
+
+rangeXY=[0 20; 0 20]; <mwsh:comments xml:space="preserve">%[xmin, xmax; ymin, ymax];</mwsh:comments>
+labelF={<mwsh:strings xml:space="preserve">'line'</mwsh:strings>,<mwsh:strings xml:space="preserve">'random'</mwsh:strings>,<mwsh:strings xml:space="preserve">'line+random'</mwsh:strings>,<mwsh:strings xml:space="preserve">'hough trans. for line'</mwsh:strings>,<mwsh:strings xml:space="preserve">'discrete vote'</mwsh:strings>,<mwsh:strings xml:space="preserve">'voting contour map'</mwsh:strings>};
+fignum=1;
+
+
+x=0:dT:rangeXY(1,2);
+lgen=@(x) a*x+b;
+
+
+figure(fignum); clf
+set(fignum,<mwsh:strings xml:space="preserve">'name'</mwsh:strings>,labelF{fignum},<mwsh:strings xml:space="preserve">'Position'</mwsh:strings>,[500   920   550   500]);
+plot(x,lgen(x),<mwsh:strings xml:space="preserve">'b.'</mwsh:strings>,<mwsh:strings xml:space="preserve">'MarkerSize'</mwsh:strings>,24);
+title(labelF{fignum});
+grid <mwsh:strings xml:space="preserve">on</mwsh:strings>;
+axis <mwsh:strings xml:space="preserve">equal</mwsh:strings>;
+fignum=fignum+1;
+
+rdPos=repmat(diff(rangeXY'),[rdN 1]).*rand(rdN,2)+repmat(rangeXY(:,1)',[rdN 1]);
+
+figure(fignum); clf
+set(fignum,<mwsh:strings xml:space="preserve">'name'</mwsh:strings>,labelF{fignum},<mwsh:strings xml:space="preserve">'Position'</mwsh:strings>,[1050   850   550   500]);
+
+plot(rdPos(:,1),rdPos(:,2),<mwsh:strings xml:space="preserve">'r.'</mwsh:strings>,<mwsh:strings xml:space="preserve">'MarkerSize'</mwsh:strings>,24);
+set(gca,<mwsh:strings xml:space="preserve">'xlim'</mwsh:strings>,rangeXY(1,:),<mwsh:strings xml:space="preserve">'ylim'</mwsh:strings>,rangeXY(2,:));
+title(labelF{fignum});
+grid <mwsh:strings xml:space="preserve">on</mwsh:strings>;
+axis <mwsh:strings xml:space="preserve">equal</mwsh:strings>;
+fignum=fignum+1;
+
+mD=[x',lgen(x'); rdPos];
+<mwsh:comments xml:space="preserve">% mD=[x',lgen(x'); ];</mwsh:comments>
+
+figure(fignum); clf
+set(fignum,<mwsh:strings xml:space="preserve">'name'</mwsh:strings>,strrep(labelF{fignum},<mwsh:strings xml:space="preserve">'+'</mwsh:strings>,<mwsh:strings xml:space="preserve">'_'</mwsh:strings>),<mwsh:strings xml:space="preserve">'Position'</mwsh:strings>,[1600   850   550   500]);
+
+plot(mD(:,1),mD(:,2),<mwsh:strings xml:space="preserve">'k.'</mwsh:strings>,<mwsh:strings xml:space="preserve">'MarkerSize'</mwsh:strings>,24);
+set(gca,<mwsh:strings xml:space="preserve">'xlim'</mwsh:strings>,rangeXY(1,:),<mwsh:strings xml:space="preserve">'ylim'</mwsh:strings>,rangeXY(2,:));
+title(labelF{fignum});
+grid <mwsh:strings xml:space="preserve">on</mwsh:strings>;
+axis <mwsh:strings xml:space="preserve">equal</mwsh:strings>;
+fignum=fignum+1;
+
+
+
+
+<mwsh:comments xml:space="preserve">% datafname='pict_res';</mwsh:comments><mwsh:comments xml:space="preserve">% save_fig;</mwsh:comments></mwsh:code></mcode-xmlized>
+      <mcode-count>1</mcode-count>
+      <cellOutputTarget>3</cellOutputTarget>
+      <img src="lec2D_A0_lineGen_Normal_01.png"/>
+      <img src="lec2D_A0_lineGen_Normal_02.png"/>
+      <img src="lec2D_A0_lineGen_Normal_03.png"/>
+   </cell>
+   <originalCode>%% MATLAB programming course for beginners, supported by Wagatsuma Lab@Kyutech 
+%
+% /* 
+% The MIT License (MIT): 
+% Copyright (c) 2021 Hiroaki Wagatsuma and Wagatsuma Lab@Kyutech
+% 
+% Permission is hereby granted, free of charge, to any person obtaining a
+% copy of this software and associated documentation files (the
+% "Software"), to deal in the Software without restriction, including
+% without limitation the rights to use, copy, modify, merge, publish,
+% distribute, sublicense, and/or sell copies of the Software, and to permit
+% persons to whom the Software is furnished to do so, subject to the
+% following conditions:
+% 
+% The above copyright notice and this permission notice shall be included
+% in all copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+% NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+% DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+% OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+% USE OR OTHER DEALINGS IN THE SOFTWARE. */
+%% Specifications and requirements
+% # @Time    : 2021-5-26 
+% # @Author  : Hiroaki Wagatsuma
+% # @Site    : https://github.com/hirowgit/1B1_matlab_signal_analysis_course
+% # @IDE     : MATLAB R2018a
+% # @File    : lec2D_A0_lineGen_Normal.m
+
+%%  Main program
+% clear all
+
+a=1; b=2; 
+% dT=0.25;
+dT=0.75;
+rdN=100;
+dN=100;
+dNs=20;
+t=0:pi/dN:pi;
+gridP=0:dNs;
+
+rangeXY=[0 20; 0 20]; %[xmin, xmax; ymin, ymax];
+labelF={'line','random','line+random','hough trans. for line','discrete vote','voting contour map'};
+fignum=1;
+
+
+x=0:dT:rangeXY(1,2);
+lgen=@(x) a*x+b;
+
+
+figure(fignum); clf
+set(fignum,'name',labelF{fignum},'Position',[500   920   550   500]);
+plot(x,lgen(x),'b.','MarkerSize',24);
+title(labelF{fignum});
+grid on;
+axis equal;
+fignum=fignum+1;
+
+rdPos=repmat(diff(rangeXY'),[rdN 1]).*rand(rdN,2)+repmat(rangeXY(:,1)',[rdN 1]);
+
+figure(fignum); clf
+set(fignum,'name',labelF{fignum},'Position',[1050   850   550   500]);
+
+plot(rdPos(:,1),rdPos(:,2),'r.','MarkerSize',24);
+set(gca,'xlim',rangeXY(1,:),'ylim',rangeXY(2,:));
+title(labelF{fignum});
+grid on;
+axis equal;
+fignum=fignum+1;
+
+mD=[x',lgen(x'); rdPos];
+% mD=[x',lgen(x'); ];
+
+figure(fignum); clf
+set(fignum,'name',strrep(labelF{fignum},'+','_'),'Position',[1600   850   550   500]);
+
+plot(mD(:,1),mD(:,2),'k.','MarkerSize',24);
+set(gca,'xlim',rangeXY(1,:),'ylim',rangeXY(2,:));
+title(labelF{fignum});
+grid on;
+axis equal;
+fignum=fignum+1;
+
+
+
+
+% datafname='pict_res';
+% save_fig;
+</originalCode>
+   <m-file>lec2D_A0_lineGen_Normal</m-file>
+   <filename>/Users/hiro/Documents/github/1B1_matlab_signal_analysis_course/lec2D_A0_lineGen_Normal.m</filename>
+   <outputdir>/Users/hiro/Documents/github/1B1_matlab_signal_analysis_course/lec2D_A0_lineGen_Normal</outputdir>
+</mscript>
