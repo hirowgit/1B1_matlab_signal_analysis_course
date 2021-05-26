@@ -44,7 +44,7 @@ or put all above folder in the same folder of the main m file.
 # Lecture 1: How to treat 1D data 
 ## < Plotting a time-series data >
 
-### 1) Sine wave and its piecewise linear function to trace characteristic points by using simbolic math solver  
+### 1) Sine wave and its piecewise linear function to trace characteristic points by using symbolic math solver  
 See this page for learning MATLAB symbolic solver
 
 [1] https://jp.mathworks.com/help/symbolic/solve.html
