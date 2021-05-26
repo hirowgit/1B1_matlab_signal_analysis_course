@@ -46,10 +46,13 @@ or put all above folder in the same folder of the main m file.
 
 ### 1) Sine wave and its piecewise linear function to trace characteristic points by using simbolic math solver  
 See this page for learning MATLAB symbolic solver
+
 [1] https://jp.mathworks.com/help/symbolic/solve.html
 
 lec1D_A1_SimplePlot_Normal
+
 lec1D_A2_PLF_plot_Normal
+
 lec1D_A3_PLF_solver_Normal
 
 
