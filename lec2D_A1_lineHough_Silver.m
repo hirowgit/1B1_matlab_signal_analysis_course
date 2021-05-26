@@ -27,11 +27,10 @@
 % # @Author  : Hiroaki Wagatsuma
 % # @Site    : https://github.com/hirowgit/1B1_matlab_signal_analysis_course
 % # @IDE     : MATLAB R2018a
-% # @File    : lec2D_A1_lineHough_Plus.m
+% # @File    : lec2D_A1_lineHough_Copper.m
 
 %%  Main program
 % clear all
-
 
 a=1; b=2; 
 % dT=0.25;
@@ -43,17 +42,24 @@ dNs=20;
 t=0:pi/dN:pi;
 gridP=0:dNs;
 
+figSize=[550   500];
+sPx=500; sPy=900;
+figNx=3; figNy=2;
+
 rangeXY=[0 20; 0 20]; %[xmin, xmax; ymin, ymax];
-labelF={'line','random','line+random','hough trans. for line','discrete vote','voting contour map'};
+labelF={'line','random','line+random','hough trans. for line','discrete vote','voting contour map','The number of votes'};
 fignum=1;
 
+flagNoiseOn=true;  % if you test the noise condition 
+flagNoiseOn=false; % if you test without-noise condition
 
 x=0:dT:rangeXY(1,2);
 lgen=@(x) a*x+b;
 
 
 figure(fignum); clf
-set(fignum,'name',labelF{fignum},'Position',[500   920   550   500]);
+figPn=mod(fignum,figNx*figNy);
+set(fignum,'name',labelF{fignum},'Position',[figSize(1)*(mod(figPn-1,figNx))+sPx  sPy-figSize(2)*floor((figPn-1)./figNx)  figSize]);
 plot(x,lgen(x),'b.','MarkerSize',24);
 title(labelF{fignum});
 grid on;
@@ -63,7 +69,8 @@ fignum=fignum+1;
 rdPos=repmat(diff(rangeXY'),[rdN 1]).*rand(rdN,2)+repmat(rangeXY(:,1)',[rdN 1]);
 
 figure(fignum); clf
-set(fignum,'name',labelF{fignum},'Position',[1050   850   550   500]);
+figPn=mod(fignum-1,figNx*figNy)+1;
+set(fignum,'name',labelF{fignum},'Position',[figSize(1)*(mod(figPn-1,figNx))+sPx  sPy-figSize(2)*floor((figPn-1)./figNx)  figSize]);
 
 plot(rdPos(:,1),rdPos(:,2),'r.','MarkerSize',24);
 set(gca,'xlim',rangeXY(1,:),'ylim',rangeXY(2,:));
@@ -72,11 +79,16 @@ grid on;
 axis equal;
 fignum=fignum+1;
 
-% mD=[x',lgen(x'); rdPos];
-mD=[x',lgen(x'); ];
+if flagNoiseOn
+    mD=[x',lgen(x'); rdPos];
+else
+    mD=[x',lgen(x'); ];
+end
 
 figure(fignum); clf
-set(fignum,'name',strrep(labelF{fignum},'+','_'),'Position',[1600   850   550   500]);
+figPn=mod(fignum-1,figNx*figNy)+1;
+set(fignum,'name',strrep(labelF{fignum},'+','_'),'Position',[figSize(1)*(mod(figPn-1,figNx))+sPx  sPy-figSize(2)*floor((figPn-1)./figNx)  figSize]);
+
 
 plot(mD(:,1),mD(:,2),'k.','MarkerSize',24);
 set(gca,'xlim',rangeXY(1,:),'ylim',rangeXY(2,:));
@@ -89,6 +101,7 @@ houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)])+repmat(mD
 thetaD=repmat((t'),[1 size(mD,1)]);
 mD2=[thetaD(:) houghLD(:)];
 
+voteD=[];
 voteD(:,1)=floor(dNs.*(mD2(:,1)-min(mD2(:,1)))./(max(mD2(:,1))-min(mD2(:,1))))+1;
 voteD(:,2)=floor(dNs.*(mD2(:,2)-min(mD2(:,2)))./(max(mD2(:,2))-min(mD2(:,2))))+1;
 countD=zeros(dNs+1,dNs+1);
@@ -100,20 +113,22 @@ grX=((max(mD2(:,1))-min(mD2(:,1))).*(gridP)./dNs)+min(mD2(:,1));
 grY=((max(mD2(:,2))-min(mD2(:,2))).*(gridP)./dNs)+min(mD2(:,2));
 
 grXP=repmat(grX,[dNs+1 1]);
-grYP=repmat(grY',[1 dNs+1]);    
+grYP=repmat(grY',[1 dNs+1]); 
 
-% disD=(sqrt(power(repmat(mD2(:,1),[1,size(mD2,1)])-repmat(mD2(:,1)',[size(mD2,1),1]),2)+power(repmat(mD2(:,1),[1,size(mD2,1)])-repmat(mD2(:,1)',[size(mD2,1),1]),2)));
-% disD2=triu(disD)-triu(ones(size(disD)))';
-% disD2f=disD2(:);
-% key=find(disD2f>=0);
-% sortedDis=sortrows([key disD2f(key)],2);
+[ki kj]=find(countD>=max(max(countD)));
+
+peakY=grYP(ki,kj);
+peakX=grXP(ki,kj);
 
 figure(fignum); clf
 labelF2=strrep(labelF{fignum},'.','');
 labelF2=strrep(labelF2,' ','_');
-set(fignum,'name',labelF2,'Position',[500   270   550   500]);
+figPn=mod(fignum-1,figNx*figNy)+1;
+set(fignum,'name',labelF2,'Position',[figSize(1)*(mod(figPn-1,figNx))+sPx  sPy-figSize(2)*floor((figPn-1)./figNx)  figSize]);
 
-plot(mD2(:,1),mD2(:,2),'k.');
+plot(mD2(:,1),mD2(:,2),'k.'),hold on;
+plot(peakX,peakY,'r*','MarkerSize',14);
+
 xtickpoint=0:pi/4:2*pi;
 xlabel={'0','\pi/4','\pi/2','3\pi/4','\pi','5\pi/4','3\pi/2','7\pi/4','2\pi'};
 set(gca,'xtick',xtickpoint,'xticklabel',xlabel)
@@ -124,11 +139,13 @@ fignum=fignum+1;
 figure(fignum); clf
 labelF2=strrep(labelF{fignum},'.','');
 labelF2=strrep(labelF2,' ','_');
-set(fignum,'name',labelF2,'Position',[1050   270   550   500]);
+figPn=mod(fignum-1,figNx*figNy)+1;
+set(fignum,'name',labelF2,'Position',[figSize(1)*(mod(figPn-1,figNx))+sPx  sPy-figSize(2)*floor((figPn-1)./figNx)  figSize]);
 
 plot(voteD(:,1),voteD(:,2),'k.'),hold on;
 contour(countD);
 % contourf(countD);
+
 xtickpoint=0:pi/4:2*pi;
 title(labelF{fignum});
 grid on;
@@ -137,7 +154,8 @@ fignum=fignum+1;
 figure(fignum); clf
 labelF2=strrep(labelF{fignum},'.','');
 labelF2=strrep(labelF2,' ','_');
-set(fignum,'name',labelF2,'Position',[1600   270   550   500]);
+figPn=mod(fignum-1,figNx*figNy)+1;
+set(fignum,'name',labelF2,'Position',[figSize(1)*(mod(figPn-1,figNx))+sPx  sPy-figSize(2)*floor((figPn-1)./figNx)  figSize]);
 
 contour3(grXP,grYP,countD,50,'lineWidth',3);
 set(gca,'xtick',xtickpoint,'xticklabel',xlabel)
@@ -145,6 +163,21 @@ title(labelF{fignum});
 grid on;
 fignum=fignum+1;
 
+figure(fignum); clf
+labelF2=strrep(labelF{fignum},'.','');
+labelF2=strrep(labelF2,' ','_');
+figPn=mod(fignum-1,figNx*figNy)+1;
+set(fignum,'name',labelF2,'Position',[figSize(1)*(mod(figPn-1,figNx))+sPx  sPy-figSize(2)*floor((figPn-1)./figNx)  figSize]);
 
-% datafname='pict_res';
+plot(sort(countD(:)),'k.','MarkerSize',10);
+title(labelF{fignum});
+grid on;
+fignum=fignum+1;
+
+
+if flagNoiseOn
+    datafname='lineHough_with_Noise';
+else
+    datafname='lineHough_without_Noise';
+end
 % save_fig;

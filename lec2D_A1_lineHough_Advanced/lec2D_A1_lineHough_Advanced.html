@@ -126,7 +126,7 @@ grid <span class="string">on</span>;
 axis <span class="string">equal</span>;
 fignum=fignum+1;
 
-houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)]);
+houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)]);
 thetaD=repmat((t'),[1 size(mD,1)]);
 mD2=[thetaD(:) houghLD(:)];
 
@@ -295,7 +295,7 @@ grid on;
 axis equal;
 fignum=fignum+1;
 
-houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)]);
+houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)]);
 thetaD=repmat((t'),[1 size(mD,1)]);
 mD2=[thetaD(:) houghLD(:)];
 

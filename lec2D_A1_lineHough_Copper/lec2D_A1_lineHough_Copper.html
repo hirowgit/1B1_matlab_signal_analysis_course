@@ -85,7 +85,7 @@ labelF={<span class="string">'line'</span>,<span class="string">'random'</span>,
 fignum=1;
 
 flagNoiseOn=true;  <span class="comment">% if you test the noise condition</span>
-flagNoiseOn=false; <span class="comment">% if you test without-noise condition</span>
+<span class="comment">% flagNoiseOn=false; % if you test without-noise condition</span>
 
 x=0:dT:rangeXY(1,2);
 lgen=@(x) a*x+b;
@@ -131,7 +131,7 @@ grid <span class="string">on</span>;
 axis <span class="string">equal</span>;
 fignum=fignum+1;
 
-houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)]);
+houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)]);
 thetaD=repmat((t'),[1 size(mD,1)]);
 mD2=[thetaD(:) houghLD(:)];
 
@@ -201,9 +201,13 @@ grid <span class="string">on</span>;
 fignum=fignum+1;
 
 
-<span class="comment">% datafname='pict_res';</span>
-<span class="comment">% save_fig;</span>
-</pre><img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_01.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_02.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_03.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_04.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_05.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_06.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_07.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+<span class="keyword">if</span> flagNoiseOn
+    datafname=<span class="string">'lineHough_with_Noise'</span>;
+<span class="keyword">else</span>
+    datafname=<span class="string">'lineHough_without_Noise'</span>;
+<span class="keyword">end</span>
+save_fig;
+</pre><img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_01.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_02.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_03.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_04.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_05.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_06.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_07.png" alt=""> <img vspace="5" hspace="5" src="lec2D_A1_lineHough_Copper_08.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% MATLAB programming course for beginners, supported by Wagatsuma Lab@Kyutech 
 %
@@ -258,7 +262,7 @@ labelF={'line','random','line+random','hough trans. for line','discrete vote','v
 fignum=1;
 
 flagNoiseOn=true;  % if you test the noise condition 
-flagNoiseOn=false; % if you test without-noise condition
+% flagNoiseOn=false; % if you test without-noise condition
 
 x=0:dT:rangeXY(1,2);
 lgen=@(x) a*x+b;
@@ -304,7 +308,7 @@ grid on;
 axis equal;
 fignum=fignum+1;
 
-houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)]);
+houghLD=repmat(mD(:,1)',[size(t,2) 1]).*repmat(cos(t'),[1 size(mD,1)])+repmat(mD(:,2)',[size(t,2) 1]).*repmat(sin(t'),[1 size(mD,1)]);
 thetaD=repmat((t'),[1 size(mD,1)]);
 mD2=[thetaD(:) houghLD(:)];
 
@@ -374,8 +378,12 @@ grid on;
 fignum=fignum+1;
 
 
-% datafname='pict_res';
-% save_fig;
+if flagNoiseOn
+    datafname='lineHough_with_Noise';
+else
+    datafname='lineHough_without_Noise';
+end
+save_fig;
 
 ##### SOURCE END #####
 --></body></html>
