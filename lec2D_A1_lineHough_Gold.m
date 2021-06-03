@@ -37,8 +37,8 @@ a=1; b=2;
 dT=0.75;
 rdN=100;
 dN=100;
-dNs=100;
-% dNs=20;
+% dNs=100;
+dNs=70;
 t=0:pi/dN:pi;
 gridP=0:dNs;
 
