@@ -27,7 +27,7 @@
 % # @Author  : Hiroaki Wagatsuma
 % # @Site    : https://github.com/hirowgit/1B1_matlab_signal_analysis_course
 % # @IDE     : MATLAB R2018a
-% # @File    : lec2D_A1_lineHough_Copper.m
+% # @File    : lec2D_A1_lineHough_Gold.m
 
 %%  Main program
 % clear all
