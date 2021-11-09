@@ -53,10 +53,10 @@ PatN=1; % PatN=3;
 dimNt=dimN-1;
 basePos=scaleM.*rand(dimNt,PatN); % base Position
 rangeSpOccp=scaleM*0.1;
-genPos2D=basePos+rangeSpOccp.*rand(dimNt,dN); gP2D=genPos2D;
+genPos2D=basePos+rangeSpDist.*rand(dimNt,dN); gP2D=genPos2D;
 genGrad=10*rand(dimNt,PatN);
 rangVari=10; % range of Variance
-genRd=rangeSpOccp.*rand(1,dN);
+genRd=rand(1,dN);
 repmat(genGrad,[1,dN]).*genPos2D+repmat(genGrad,[1,dN]).*g
 
 % ax+by+cz+d=0;  
