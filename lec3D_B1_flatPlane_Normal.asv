@@ -50,19 +50,23 @@ axis equal;
 % making a test data to reconstruct a flat plane
 scaleM=100;
 PatN=1; % PatN=3;
-dimNt=dimN-1;
-basePos=scaleM.*rand(dimNt,PatN); % base Position
-rangeSpOccp=scaleM*0.1;
-genPos2D=basePos+rangeSpDist.*rand(dimNt,dN); gP2D=genPos2D;
-genGrad=10*rand(dimNt,PatN);
+constN=1;
+dimNt=dimN-constN;
 rangVari=10; % range of Variance
-genRd=rand(1,dN);
-repmat(genGrad,[1,dN]).*genPos2D+repmat(genGrad,[1,dN]).*g
+
+basePos=scaleM.*(rand(dimNt,PatN); % base Position
+rangeSpOccp=scaleM*0.1;
+genPos2D=basePos+rangeSpOccp.*rand(dimNt,dN); gP2D=genPos2D;
+genGrad=rangVari*rand(dimNt,PatN);
+genConst=-scaleM*2*rangVari*rand(constN,PatN);
+
+% genRd=rangeSpOccp.*rand(1,dN);
+funcP=sum(repmat(genGrad,[1,dN]).*genPos2D)+repmat(genConst,[1,dN]);
 
 % ax+by+cz+d=0;  
 % (a/c)x+(b/c)y+z+(d/c)=0; => cf[2]*x+cf[3]*y+z+cf[1]=0; 
-% => z=-(cf[2]*x+cf[3]*y+cf[1])
-genRd=genGrad.*gP2D(1,*)
+% => z=-(cf[2]*x+cf[3]*y+cf[1])/c
+genRd=-funcP
 
 dN=5;
 figNum=figNum+1;
