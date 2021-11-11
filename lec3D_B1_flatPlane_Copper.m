@@ -32,7 +32,7 @@
 %%  Main program
 % clear all
 dimN=3;
-
+ 
 dN=5;
 Fig1pos= [50 1200];
 FigSize=1000*ones(1,2);
