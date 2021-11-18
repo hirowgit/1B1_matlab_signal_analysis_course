@@ -75,11 +75,11 @@ ansM2
 % a_num=matlabFunction(a_res);
 % b_num=matlabFunction(b_res);
 
-fsample(1,2)
+% fsample(1,2)
 
-function res=fsample(b,c)
- res=b+c;
-%  return(z);
+function a = mymean(v)
+n = length(v);
+a = sum(v)/n;
 end
 
 
