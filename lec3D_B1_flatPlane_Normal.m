@@ -48,26 +48,43 @@ set(figNum,'Position',[Fig1pos FigSize]);
 axis equal;
 
 % making a test data to reconstruct a flat plane
-scaleM=100;
+dN=150;
+
+scaleM=100; 
 PatN=1; % PatN=3;
-dimNt=dimN-1;
-basePos=scaleM.*rand(dimNt,PatN); % base Position
+constN=1;
+dimNt=dimN-constN;
+rangVari=10; % range of Variance
+
+basePos=scaleM.*(2*rand(dimNt,PatN)-1); % base Position
+basePos=zeros(2,1);
 rangeSpOccp=scaleM*0.1;
 genPos2D=basePos+rangeSpOccp.*rand(dimNt,dN); gP2D=genPos2D;
-genGrad=10*rand(dimNt,PatN);
-rangVari=10; % range of Variance
-genRd=rangeSpOccp.*rand(1,dN);
-repmat(genGrad,[1,dN]).*genPos2D+repmat(genGrad,[1,dN]).*g
+genGrad=rangVari*rand(dimNt,PatN);  % a, b
+genResidual=rangVari*rand(constN,PatN);  % c
+genConst=-scaleM*rand(constN,PatN);  % d
+% genConst=0;  % d
+
+% genRd=rangeSpOccp.*rand(1,dN);
+funcP=sum(repmat(genGrad,[1,dN]).*genPos2D)+repmat(genConst,[1,dN]);
 
 % ax+by+cz+d=0;  
 % (a/c)x+(b/c)y+z+(d/c)=0; => cf[2]*x+cf[3]*y+z+cf[1]=0; 
-% => z=-(cf[2]*x+cf[3]*y+cf[1])
-genRd=genGrad.*gP2D(1,*)
+% => z=-(cf[2]*x+cf[3]*y+cf[1])/c
+genRd=-funcP./genResidual;
+genPos3D=[genPos2D;genRd];
 
-dN=5;
 figNum=figNum+1;
 figure(figNum); clf
-plot3(posDot(:,1),posDot(:,2),posDot(:,3),'.', 'MarkerSize',32);
+plot3(genPos3D(1,:),genPos3D(2,:),genPos3D(3,:),'.', 'MarkerSize',32);
 grid on;
 set(figNum,'Position',[Fig1pos FigSize]);
 axis equal;
+
+for my_az=-90:1:90
+    figure(figNum);
+    view(my_az,30);
+    drawnow;
+end
+
+[caz,cel] = view()
