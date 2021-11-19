@@ -72,7 +72,7 @@ set(figNum,'Position',[Fig1pos FigSize]);
 axis equal;
 
 % making a test data to reconstruct a flat plane
-dN=5;
+dN=150;
 
 scaleM=100; 
 PatN=1; % PatN=3;
@@ -89,10 +89,10 @@ genResidual=rangVari*rand(constN,PatN);  % c
 genConst=-scaleM*rand(constN,PatN);  % d
 % genConst=0;  % d
 
-genPos2D=[1 1 -1 -1 1;
-         -1 1 -1 1 -1];
- genPos2D=[1 1 1 1 1;
-         -1 1 -1 1 -1];
+% genPos2D=[1 1 -1 -1 1;
+%          -1 1 -1 1 -1];
+%  genPos2D=[1 1 1 1 1;
+%          -1 1 -1 1 -1];
 genGrad=[5; 0];
 genResidual=-5;
 genConst=5;
