@@ -39,7 +39,7 @@ FigSize=1000*ones(1,2);
 
 % ~~~~~~~~~ VideoWriter <initialize> (start)~~~~~~~~~~~~~~
 
-Flag_write_Movie=0;
+Flag_write_Movie=1;
 Nm=4; % the serial number of the movie
 % ms_size=[480 360]; % the movie screen size
 ms_size=FigSize; % the movie screen size
