@@ -1,7 +1,7 @@
 % close all;
 % clc;
 % clear all;
-
+tic
 gen_dataS_Plus_2;  % sample data generation
 % gen_dataS_Plus_1;  % sample data generation
 dataSetSP=yd3;     % you can set your own data to dataSetSP instead of yd3
@@ -302,3 +302,4 @@ xd_1=xdata_tmp(120:N-120)';
 Ts=Ts/r;
 covRsig=covariance;
 TsF=Ts;
+toc
